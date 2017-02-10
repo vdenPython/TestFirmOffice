@@ -87,4 +87,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
-*.py
+
+wr_test.py
