@@ -17,9 +17,9 @@ class test_add_group(unittest.TestCase):
     def test_test_add_group(self):
         wd = self.wd
         self.open_admin_django(wd)
-        self.login_admin_django(wd)
+        self.login_admin_django(wd, username= "test", password= "test12345")
         self.open_groups_page(wd)
-        self.create_group(wd)
+        self.create_group(wd, name= "test1")
         self.return_main_admin_django(wd)
         self.logout_admin_django(wd)
 
@@ -29,20 +29,20 @@ class test_add_group(unittest.TestCase):
     def return_main_admin_django(self, wd):
         wd.find_element_by_link_text("Администрирование Django").click()
 
-    def create_group(self, wd):
+    def create_group(self, wd, name):
         wd.find_element_by_link_text("ДОБАВИТЬ ГРУППА").click()
         wd.find_element_by_id("id_name").clear()
-        wd.find_element_by_id("id_name").send_keys("test1")
+        wd.find_element_by_id("id_name").send_keys(name)
         wd.find_element_by_name("_save").click()
 
     def open_groups_page(self, wd):
         wd.find_element_by_link_text("Группы").click()
 
-    def login_admin_django(self, wd):
+    def login_admin_django(self, wd, username, password):
         wd.find_element_by_id("id_username").clear()
-        wd.find_element_by_id("id_username").send_keys("test")
+        wd.find_element_by_id("id_username").send_keys(username)
         wd.find_element_by_id("id_password").clear()
-        wd.find_element_by_id("id_password").send_keys("test12345")
+        wd.find_element_by_id("id_password").send_keys(password)
         wd.find_element_by_xpath("//div[@class='submit-row']/input").click()
 
     def open_admin_django(self, wd):
