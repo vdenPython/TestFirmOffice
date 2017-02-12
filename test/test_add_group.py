@@ -14,5 +14,5 @@ def app(request):
     
 def test_add_group(app):
     app.session.login_admin_django(username= "test", password= "test12345")
-    app.create_group(Group(name= "test1"))
+    app.group.create(Group(name= "test1"))
     app.session.logout_admin_django()
