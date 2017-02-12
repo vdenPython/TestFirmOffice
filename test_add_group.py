@@ -17,34 +17,38 @@ class test_add_group(unittest.TestCase):
         self.wd.implicitly_wait(60)
     
     def test_test_add_group(self):
-        wd = self.wd
-        self.login_admin_django(wd, username= "test", password= "test12345")
-        self.create_group(wd, Group(name= "test1"))
-        self.logout_admin_django(wd)
+        self.login_admin_django(username= "test", password= "test12345")
+        self.create_group(Group(name= "test1"))
+        self.logout_admin_django()
 
-    def logout_admin_django(self, wd):
+    def logout_admin_django(self):
+        wd = self.wd
         wd.find_element_by_link_text("ВЫЙТИ").click()
 
-    def return_main_admin_django(self, wd):
+    def return_main_admin_django(self):
+        wd = self.wd
         wd.find_element_by_link_text("Администрирование Django").click()
 
-    def create_group(self, wd, group):
+    def create_group(self, group):
+        wd = self.wd
 
-        self.open_groups_page(wd)
+        self.open_groups_page()
 
         wd.find_element_by_link_text("ДОБАВИТЬ ГРУППА").click()
         wd.find_element_by_id("id_name").clear()
         wd.find_element_by_id("id_name").send_keys(group.name)
         wd.find_element_by_name("_save").click()
 
-        self.return_main_admin_django(wd)
+        self.return_main_admin_django()
 
-    def open_groups_page(self, wd):
+    def open_groups_page(self):
+        wd = self.wd
         wd.find_element_by_link_text("Группы").click()
 
-    def login_admin_django(self, wd, username, password):
+    def login_admin_django(self, username, password):
+        wd = self.wd
 
-        self.open_admin_django(wd)
+        self.open_admin_django()
 
         wd.find_element_by_id("id_username").clear()
         wd.find_element_by_id("id_username").send_keys(username)
@@ -52,7 +56,8 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_id("id_password").send_keys(password)
         wd.find_element_by_xpath("//div[@class='submit-row']/input").click()
 
-    def open_admin_django(self, wd):
+    def open_admin_django(self):
+        wd = self.wd
         wd.get("http://127.0.0.1:8000/admin/")
 
     def tearDown(self):
