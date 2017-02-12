@@ -18,11 +18,8 @@ class test_add_group(unittest.TestCase):
     
     def test_test_add_group(self):
         wd = self.wd
-        self.open_admin_django(wd)
         self.login_admin_django(wd, username= "test", password= "test12345")
-        self.open_groups_page(wd)
         self.create_group(wd, Group(name= "test1"))
-        self.return_main_admin_django(wd)
         self.logout_admin_django(wd)
 
     def logout_admin_django(self, wd):
@@ -32,15 +29,23 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_link_text("Администрирование Django").click()
 
     def create_group(self, wd, group):
+
+        self.open_groups_page(wd)
+
         wd.find_element_by_link_text("ДОБАВИТЬ ГРУППА").click()
         wd.find_element_by_id("id_name").clear()
         wd.find_element_by_id("id_name").send_keys(group.name)
         wd.find_element_by_name("_save").click()
 
+        self.return_main_admin_django(wd)
+
     def open_groups_page(self, wd):
         wd.find_element_by_link_text("Группы").click()
 
     def login_admin_django(self, wd, username, password):
+
+        self.open_admin_django(wd)
+
         wd.find_element_by_id("id_username").clear()
         wd.find_element_by_id("id_username").send_keys(username)
         wd.find_element_by_id("id_password").clear()
